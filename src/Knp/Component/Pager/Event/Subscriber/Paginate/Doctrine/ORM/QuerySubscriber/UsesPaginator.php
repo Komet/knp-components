@@ -15,6 +15,9 @@ class UsesPaginator implements EventSubscriberInterface
 
     public function items(ItemsEvent $event)
     {
+        if (isset($event->options['orm-paginator']) && $event->options['orm-paginator'] == false) {
+            return;
+        }
         if (!class_exists('Doctrine\ORM\Tools\Pagination\Paginator')) {
             return;
         }
